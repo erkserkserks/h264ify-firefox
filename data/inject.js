@@ -40,7 +40,7 @@
 
   // Override media source extension isTypeSupported() function
   var mse = window.MediaSource;
-  // Check for MSE support before use so we don't die here
+  // Check for MSE support before use - some versions of FF don't support MSE
   if (mse === undefined) return;
   var origIsTypeSupported = mse.isTypeSupported.bind(mse);
   mse.isTypeSupported = function(type) {
@@ -55,3 +55,4 @@
     return origIsTypeSupported(type);
   }
 })();
+
