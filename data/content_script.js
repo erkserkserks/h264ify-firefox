@@ -22,14 +22,49 @@
  * SOFTWARE.
  */
 
+var injectedJS = (function() {
+  console.log('test')
+  rambo = 'hello'
+  alert('hello')
+  // Override video element canPlayType() function
+  var videoElem = document.createElement('video');
+  var origCanPlayType = videoElem.canPlayType.bind(videoElem);
+  videoElem.__proto__.canPlayType = function(type) {
+    if (type === undefined) return '';
+    // If queried about webM/vp8/vp8 support, say we don't support them
+    if (type.indexOf('webm') != -1 ||
+      type.indexOf('vp8') != -1 ||
+      type.indexOf('vp9') != -1) {
+      return '';
+    }
+    // Otherwise, ask the browser
+    return origCanPlayType(type);
+  }
+
+  // Override media source extension isTypeSupported() function
+  var mse = window.MediaSource;
+  // Check for MSE support before use so we don't die later
+  if (mse === undefined) return;
+  var origIsTypeSupported = mse.isTypeSupported.bind(mse);
+  mse.isTypeSupported = function(type) {
+    if (type === undefined) return '';
+    // If queried about webM/vp8/vp8 support, say we don't support them
+    if (type.indexOf('webm') != -1 ||
+      type.indexOf('vp8') != -1 ||
+      type.indexOf('vp9') != -1) {
+      return '';
+    }
+    // Otherwise, ask the browser
+    return origIsTypeSupported(type);
+  }
+});
+
 // Create script elem which will be injected into the page
 var script = document.createElement('script');
 script.type = 'text/javascript';
+// A hack to include the js inline instead of using src. 
+script.text = '(' +  injectedJS.toString() + ')()';
+var html = document.documentElement;
+// Inject js into the page
+html.insertBefore(script, html.firstChild);
 
-// Get scriptURL from main.js
-self.port.on('init', function(scriptURL) {
-  script.src = scriptURL;
-  var html = document.documentElement;
-  // Inject js into the page
-  html.insertBefore(script, html.firstChild);
-});
