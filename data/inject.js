@@ -27,12 +27,13 @@
   function makeModifiedMimeTypeChecker(origFunc) {
     return function (type) {
       if (type === undefined) return '';
-      // If queried about webM/vp8/vp9 support, say we don't support them
-      if (type.indexOf('webm') !== -1 ||
-        type.indexOf('vp8') !== -1 ||
-        type.indexOf('vp9') !== -1) {
-        return '';
+
+      var disallowed_types = ['webm', 'vp8', 'vp9'];
+      // If video type is in disallowed_types, say we don't support them
+      for (var i = 0; i < disallowed_types.length; i++) {
+        if (type.indexOf(disallowed_types[i]) != -1) return '';
       }
+
       // Otherwise, ask the browser
       return origFunc(type);
     };
