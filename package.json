@@ -1,12 +1,12 @@
 {
   "name": "h264ify",
   "title": "h264ify",
-  "id": "jid1-TSgSxBhncsPBWQ",
+  "id": "jid1-TSgSxBhncsPBWQ@jetpack",
   "description": "Makes YouTube stream H.264 videos instead of VP8/VP9 videos",
   "author": "erkserkserks",
   "homepage": "https://github.com/erkserkserks/h264ify-firefox",
   "icon": "icons/icon48.png",
   "icon64": "icons/icon64.png",
   "license": "MIT",
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
