@@ -7,6 +7,7 @@
   "homepage": "https://github.com/erkserkserks/h264ify-firefox",
   "icon": "icons/icon48.png",
   "icon64": "icons/icon64.png",
+  "permissions": {"private-browsing": true},
   "license": "MIT",
-  "version": "1.0.1"
+  "version": "1.0.2"
 }
