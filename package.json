@@ -9,5 +9,5 @@
   "icon64": "icons/icon64.png",
   "permissions": {"private-browsing": true},
   "license": "MIT",
-  "version": "1.0.2"
+  "version": "1.0.4"
 }

@@ -29,6 +29,6 @@ pageMod.PageMod({
   include: '*.youtube.com', 
   contentScriptWhen: 'start',
   contentScriptFile: data.url('content_script.js'),
-  contentScriptOptions: {"injectjsURI" : data.url('inject.js')}
+  contentScriptOptions: {"injectjsText" : data.load('inject.js')}
 });
 

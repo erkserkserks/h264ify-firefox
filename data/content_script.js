@@ -25,8 +25,11 @@
 // Create script elem which will be injected into the page
 var script = document.createElement('script');
 script.type = 'text/javascript';
-script.src = self.options.injectjsURI;
+// Use textContent instead of src to run inject.js synchronously
+script.textContent = self.options.injectjsText;
 var html = document.documentElement;
 // Inject js into the page
 html.insertBefore(script, html.firstChild);
+// Clean up
+script.remove()
 
