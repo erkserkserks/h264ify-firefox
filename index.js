@@ -29,6 +29,14 @@ pageMod.PageMod({
   include: '*.youtube.com', 
   contentScriptWhen: 'start',
   contentScriptFile: data.url('content_script.js'),
-  contentScriptOptions: {"injectjsText" : data.load('inject.js')}
+  contentScriptOptions: {'injectjsText' : data.load('inject.js')},
+  onAttach: function(worker) {
+    worker.port.emit('prefs', require('sdk/simple-prefs').prefs);
+
+    function onPrefChange(prefName) {
+      worker.port.emit('prefs', require('sdk/simple-prefs').prefs);
+    }
+    require('sdk/simple-prefs').on('', onPrefChange);
+  }
 });
 

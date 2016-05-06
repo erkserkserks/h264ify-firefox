@@ -22,6 +22,27 @@
  * SOFTWARE.
  */
 
+// This content script runs in an isolated environment and cannot modify any
+// javascript variables on the youtube page. Thus, we have to inject another
+// script into the DOM using a script tag.
+
+// Set defaults for options stored in localStorage
+if (localStorage['h264ify-enable'] === undefined) {
+  localStorage['h264ify-enable'] = true;
+}
+if (localStorage['h264ify-block_60fps'] === undefined) {
+  localStorage['h264ify-block_60fps'] = false;
+}
+
+// Cache extension preferences in localStorage.
+// This is needed because port.on is async and we want to
+// load the injection script immediately.
+self.port.on('prefs', function(prefs) {
+  console.log('port on prefs')
+  localStorage['h264ify-enable'] = prefs['enable'];
+  localStorage['h264ify-block_60fps'] = prefs['block_60fps'];
+});
+
 // Create script elem which will be injected into the page
 var script = document.createElement('script');
 script.type = 'text/javascript';
@@ -32,4 +53,3 @@ var html = document.documentElement;
 html.insertBefore(script, html.firstChild);
 // Clean up
 script.remove()
-

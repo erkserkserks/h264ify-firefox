@@ -8,6 +8,18 @@
   "icon": "icons/icon48.png",
   "icon64": "icons/icon64.png",
   "permissions": {"private-browsing": true},
+  "preferences": [{
+    "name": "enable",
+    "title": "Enable h264ify",
+    "type": "bool",
+    "value": true
+  },
+  {
+    "name": "block_60fps",
+    "title": "Block 60fps",
+    "type": "bool",
+    "value": false
+  }],
   "license": "MIT",
   "version": "1.0.4"
 }
